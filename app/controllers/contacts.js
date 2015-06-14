@@ -12,16 +12,19 @@ export default Ember.Controller.extend({
     submit() {
       var nameFromInput = this.get('name');
       var phoneFromInput = this.get('phone');
+      var addressFromInput = this.get('address');
 
       var newContact = this.store.createRecord('contact', {
         name: nameFromInput,
-        phone: phoneFromInput
+        phone: phoneFromInput,
+        address: addressFromInput
       });
 
       newContact.save();
 
       this.set('name', '');
       this.set('phone', '');
+      this.set('address', '');
 
     }
   }

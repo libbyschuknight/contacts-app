@@ -9,6 +9,7 @@
     {{else}}
       ****
     {{/if}}
+    {{item.address}}
   </li>
 {{else}}
   No Content!
@@ -18,9 +19,11 @@
   {{if isShowingPhoneNumber 'Hide' 'Show'}} Phone Number
 </button>
 
-{{name}}, {{phone}}
+{{name}}, {{phone}}, {{address}}
 
 {{input type="text" value=name placeholder="Name"}}
 {{input type="text" value=phone placeholder="Phonenumber"}}
+{{input type="text" value=address placeholder="Address"}}
+
 
 <button {{action "submit"}}>Add</button>
