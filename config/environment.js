@@ -4,6 +4,8 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'contacts-app',
     environment: environment,
+    contentSecurityPolicy: { 'connect-src': "'self' wss://*.firebaseio.com" },
+    firebase: 'https://glowing-fire-4175.firebaseio.com',
     baseURL: '/',
     locationType: 'auto',
     EmberENV: {

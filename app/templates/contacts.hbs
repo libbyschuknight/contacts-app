@@ -55,22 +55,33 @@
         <td>{{item.name}}</td>
         <td>{{#if isShowingPhoneNumber}}{{item.phone}}{{/if}}</td>
         <td>
+          {{!-- important , have to mention item, as are looping through an array - model
+          item is what we are passing through the action ]
+          if have action here, have to have action on controllers with same name--}}
           <button class="btn btn-xs btn-danger" {{action "deleteContact" item}}>Delete</button>
         </td>
       </tr>
+      {{!-- if don't have any data in array then will do what is in else, make for a clearer interface, need to use colspan though --}}
     {{else}}
       <tr><td colspan="4" class="text-center">Please add your first contact to the list</td></tr>
     {{/each}}
   </tbody>
 </table>
 
+
+{{!-- form - don't need "form" like you do in rails for example --}}
+{{!-- suggested way usong bootstrap to do a form, usec classs 'form control', can see examples on bootstrap site --}}
+
 <div class="row">
   <div class="col-xs-3">
-    {{input type="text" value=name size="100" placeholder="Enter a new name" class="form-control"}}
+    {{!-- lots of options for input, value is dynamic --}}
+    {{!-- why not quotes - special ember thing, in value, if not string it is managed as a variable - value=nameFromInput --}}
+    {{!-- placeholder is html5 stuff --}}
+    {{input type="text" value=nameFromInput size="100" placeholder="Enter a new name" class="form-control"}}
   </div>
 
   <div class="col-xs-3">
-    {{input type="text" value=phone size="20" placeholder="Phone" class="form-control"}}
+    {{input type="text" value=phoneFromInput size="20" placeholder="Phone" class="form-control"}}
   </div>
 
   <button type="submit" class="btn btn-warning" {{action 'addNewContact'}}>Add New Contact</button>
