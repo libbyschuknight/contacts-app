@@ -1,29 +1,88 @@
+
+
+
+{{!--   {{#each model as |item|}}
+    <li>
+      {{item.name}}
+
+      {{#if isShowingPhoneNumber}}
+        ,{{item.phone}}
+      {{else}}
+        ****
+      {{/if}}
+      {{item.address}}
+    </li>
+  {{else}}
+    No Content!
+  {{/each}}
+
+  <button {{action "toggleShowPhoneNumber"}} class="btn {{if isShowingPhoneNumber 'btn-danger' 'btn-success'}}">
+    {{if isShowingPhoneNumber 'Hide' 'Show'}} Phone Number
+  </button>
+
+  {{name}}, {{phone}}, {{address}}
+
+  {{input type="text" value=name placeholder="Name"}}
+  {{input type="text" value=phone placeholder="Phonenumber"}}
+  {{input type="text" value=address placeholder="Address"}}
+ --}}
+
+
+
 <h1>Contacts</h1>
 
-{{#each model as |item|}}
-  <li>
-    {{item.name}}
+<p>Size: {{model.length}}</p>
 
-    {{#if isShowingPhoneNumber}}
-      ,{{item.phone}}
+<table class="table table-bordered table-hover">
+
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Phone
+        <button {{action "toggleShowPhoneNumber"}} class="btn btn-xs {{if isShowingPhoneNumber 'btn-success' 'btn-danger '}}">
+          {{if isShowingPhoneNumber 'Hide' 'Show'}}
+        </button>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{!-- data mine by using key id, not mandartory, means that will update faster, glimmer engine --}}
+    {{#each model key="id" as |item|}}
+      <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{#if isShowingPhoneNumber}}{{item.phone}}{{/if}}</td>
+        <td>
+          {{!-- important , have to mention item, as are looping through an array - model
+          item is what we are passing through the action ]
+          if have action here, have to have action on controllers with same name--}}
+          <button class="btn btn-xs btn-danger" {{action "deleteContact" item}}>Delete</button>
+        </td>
+      </tr>
+      {{!-- if don't have any data in array then will do what is in else, make for a clearer interface, need to use colspan though --}}
     {{else}}
-      ****
-    {{/if}}
-    {{item.address}}
-  </li>
-{{else}}
-  No Content!
-{{/each}}
-
-<button {{action "toggleShowPhoneNumber"}} class="btn {{if isShowingPhoneNumber 'btn-danger' 'btn-success'}}">
-  {{if isShowingPhoneNumber 'Hide' 'Show'}} Phone Number
-</button>
-
-{{name}}, {{phone}}, {{address}}
-
-{{input type="text" value=name placeholder="Name"}}
-{{input type="text" value=phone placeholder="Phonenumber"}}
-{{input type="text" value=address placeholder="Address"}}
+      <tr><td colspan="4" class="text-center">Please add your first contact to the list</td></tr>
+    {{/each}}
+  </tbody>
+</table>
 
 
-<button {{action "submit"}}>Add</button>
+{{!-- form - don't need "form" like you do in rails for example --}}
+{{!-- suggested way usong bootstrap to do a form, usec classs 'form control', can see examples on bootstrap site --}}
+
+<div class="row">
+  <div class="col-xs-3">
+    {{!-- lots of options for input, value is dynamic --}}
+    {{!-- why not quotes - special ember thing, in value, if not string it is managed as a variable - value=nameFromInput --}}
+    {{!-- placeholder is html5 stuff --}}
+    {{input type="text" value=nameFromInput size="100" placeholder="Enter a new name" class="form-control"}}
+  </div>
+
+  <div class="col-xs-3">
+    {{input type="text" value=phoneFromInput size="20" placeholder="Phone" class="form-control"}}
+  </div>
+
+  <button type="submit" class="btn btn-warning" {{action 'addNewContact'}}>Add New Contact</button>
+</div>

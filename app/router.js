@@ -7,7 +7,8 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('about');
-  this.route('contacts')
+  this.route('contacts');
+  this.route('cats')
 });
 
 export default Router;
